@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+
+    <record id="data_res_partner_invoice_address_Instance Creator for Stellar" model="res.partner">
+        <field name="type">invoice</field>
+        <field name="parent_id" ref="base.main_partner"/>
+        <field name="street">602-19055 Airport Way</field>
+        <field name="street2"></field>
+        <field name="city">Pitt Meadows</field>
+        <field name="state_id" ref="base.state_ca_bc"/>
+        <field name="country_id" ref="base.ca"/>
+        <field name="zip">V3Y 0G4</field>
+        <field name="phone">6044384025</field>
+        <field name="email">info@stellarinc.ca</field>
+    </record>
+
+    <record id="base.main_company" model="res.company">
+        <field name="name">Stellar Wholesale Inc.</field>
+        <field name="logo" type="base64" file="stellar/static/img/logo.png"/>
+        <field name="street">602-19055 Airport Way</field>
+        <field name="street2"></field>
+        <field name="zip">V3Y 0G4</field>
+        <field name="city">Pitt Meadows</field>
+        <field name="phone">6044384025</field>
+        <field name="vat">R870975208</field>
+        <field name="currency_id" ref="base.CAD"/>
+        <field name="country_id" ref="base.ca"/>
+        <field name="state_id" ref="base.state_ca_bc"/>
+        <field name="email">info@stellarinc.ca</field>
+        <field name="website">http://www.stellarinc.ca/</field>
+    </record>
+
+</odoo>
