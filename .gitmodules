@@ -1,0 +1,4 @@
+[submodule "swinc20619"]
+	path = swinc20619
+	url = git@github.com:stellar-support/swinc20619.git
+	branch = st-bitacora-amo
