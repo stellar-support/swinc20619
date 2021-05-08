@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="settings" model="res.config.settings">
+        <field name="salesteam_id" eval="data_crm_team_online_salesteam"/>
+    </record>
+    <function model="res.config.settings" name="execute">
+        <value model="res.config.settings" search="[('id', '=', ref('stellar.settings'))]"/>
+    </function>
+
+</odoo>
