@@ -1,0 +1,8 @@
+[submodule "stellar"]
+	path = stellar
+	url = git@git.vauxoo.com:vauxoo/stellar.git
+	branch = 12.0
+[submodule "server-tools"]
+	path = server-tools
+	url = git@github.com:Vauxoo/server-tools.git
+	branch = 12.0
