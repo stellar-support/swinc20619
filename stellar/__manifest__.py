@@ -37,10 +37,10 @@
         'security/ir.model.access.csv',
         'data/crm_team.xml',
         'data/res_company.xml',
-        'data/res_config_settings.xml',
         'report/report_dwjo_views.xml',
         'report/report_dwjo.xml',
         'report/report_dwjo_template.xml',
+        'views/res_config_settings.xml',
     ],
     'demo': [
     ],
