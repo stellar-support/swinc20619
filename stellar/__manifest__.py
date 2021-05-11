@@ -40,7 +40,9 @@
         'report/report_dwjo_views.xml',
         'report/report_dwjo.xml',
         'report/report_dwjo_template.xml',
+        'views/assets.xml',
         'views/res_config_settings.xml',
+        'views/sale_order.xml',
     ],
     'demo': [
     ],
