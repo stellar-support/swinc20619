@@ -37,6 +37,7 @@
         'security/ir.model.access.csv',
         'data/crm_team.xml',
         'data/res_company.xml',
+        'data/sale_order_confirmation_email_template.xml',
         'report/report_dwjo_views.xml',
         'report/report_dwjo.xml',
         'report/report_dwjo_template.xml',
