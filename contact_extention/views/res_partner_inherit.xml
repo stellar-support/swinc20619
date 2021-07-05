@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="res_partner_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="id"/>
+                    <field name="field_nKi0h" string="Customer Id Number"/>
+                </xpath>
+              <xpath expr="//field[@name='website']" position="after">
+                    <field name="fax" string="Fax"/>
+                    <field name="phone2" string="Phone2"/>
+                    <field name="contact_name" string="Contact Name"/>
+                    <field name="second_contact_name" string="Second Contact Name"/>
+              </xpath>
+              <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="pst_number" string="PST Number"/>
+              </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

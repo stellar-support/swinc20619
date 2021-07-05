@@ -1,0 +1,122 @@
+<odoo>
+  <data>
+   <!-- Inherit Form View to Modify it -->
+   <record id="sale_order_inherit_studio" model="ir.ui.view">
+       <field name="name">sale.order.inherit.form</field>
+       <field name="model">sale.order</field>
+       <field name="inherit_id" ref="sale.view_order_form"/>
+       <field name="arch" type="xml">
+
+             <xpath expr="//form[1]" position="attributes">
+                <attribute name="create">true</attribute>
+            </xpath>
+              <xpath expr="//field[@name='delivery_count']" position="attributes">
+                <attribute name="string">Pick Slip</attribute>
+              </xpath>
+              <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="comment_1" string="Global Comments:"/>
+<!--                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='partner_note']/group[@name='partner_note']/field[@name='partner_note']" position="move"/>-->
+              </xpath>
+              <xpath expr="//field[@name='validity_date']" position="before">
+                <field name="status_stellar" string="status_stellar"/>
+                <field name="website_status_1" string="Website Status" force_save="True" attrs="{}" readonly="1"/>
+                <field name="delivery_method" string="Delivery Method" attrs="{}" invisible="1"/>
+              </xpath>
+              <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="argo_so" string="Argo SO #"/>
+                <field name="customer_po_" string="Customer PO #:"/>
+                <field name="customer_notes" string="Customer Notes:"/>
+                <field name="YR61u" string="invoice count to update" attrs="{}" invisible="1"/>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/form[1]/label[1]" position="attributes">
+                <attribute name="string">Item name</attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/form[1]/field[@name='name']" position="attributes">
+                <attribute name="attrs">{}</attribute>
+              </xpath>
+              <xpath expr="//field[@name='invoice_lines']" position="attributes">
+                <attribute name="attrs">{}</attribute>
+                <attribute name="invisible">1</attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]" position="attributes">
+                <attribute name="editable">bottom</attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='product_id']" position="attributes">
+                <attribute name="attrs">{"required": [["display_type","=",False]]}</attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='product_id']" position="after">
+<!--                <field name="margin" attrs="{}" invisible="1"/>-->
+                <field name="stellar_status" string="stellar status" attrs="{}" invisible="1"/>
+                <field name="invoice_count" string="Invoice count" attrs="{}" invisible="1"/>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='name']" position="attributes">
+                <attribute name="attrs">{}</attribute>
+                <attribute name="invisible">1</attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='product_uom_qty']" position="attributes">
+                <attribute name="sum">Ordered Qty:</attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='qty_delivered']" position="attributes">
+                <attribute name="attrs">{"readonly": [["qty_delivered_method","!=","manual"]], "column_invisible": [["parent.state","not in",["sale","done"]]]}</attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='product_uom']" position="attributes">
+                <attribute name="attrs">{"readonly": [["state","in",["sale","done","cancel"]]], "required": [["display_type","=",False]]}</attribute>
+                <attribute name="invisible">1</attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='price_unit']" position="attributes">
+                <attribute name="attrs">{"readonly": [["qty_invoiced","&gt;",0]]}</attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='price_unit']" position="after">
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='discount']" position="move"/>
+                <field name="unit_price_after_discount" string="Unit Price after Discount"/>
+                <field name="unit_price_discount" string="Unit Price Discount" attrs="{}" invisible="1"/>
+              </xpath>
+<!--              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='purchase_price']" position="attributes">-->
+<!--                <attribute name="attrs">{}</attribute>-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--              </xpath>-->
+              <xpath expr="//field[@name='note']" position="attributes">
+                <attribute name="placeholder">Warehouse comments: </attribute>
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='discount']" position="attributes">
+                <attribute name="attrs">{}</attribute>
+              </xpath>
+
+       </field>
+   </record>
+
+      <!-- sale order line inherit form -->
+      <record id="sale_order_line_inherit_form" model="ir.ui.view">
+          <field name="name">sale.order.line.form.inherit</field>
+          <field name="model">sale.order.line</field>
+          <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly"/>
+          <field name="arch" type="xml">
+
+              <xpath expr="//field[@name='order_partner_id']" position="after">
+                <field name="sku" string="Sku"/>
+                <field name="name_short" string="Item Name"/>
+                <field name="vendor" string="Vendor"/>
+                </xpath>
+          </field>
+      </record>
+
+      <!-- Inherit Form View to Modify it -->
+      <record id="sale_order_line_studio_inherit" model="ir.ui.view">
+          <field name="name">sale.order.line.form.inherit</field>
+          <field name="model">sale.order.line</field>
+          <field name="inherit_id" ref="sale.view_order_line_tree"/>
+          <field name="arch" type="xml">
+                 <xpath expr="//tree[1]/field[@name='name']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='qty_delivered']" position="after">
+                    <field name="discount"/>
+                    <field name="untaxed_amount_to_invoice"/>
+                    <field name="untaxed_amount_invoiced"/>
+                    <field name="stellar_status"/>
+              </xpath>
+          </field>
+      </record>
+  </data>
+</odoo>
