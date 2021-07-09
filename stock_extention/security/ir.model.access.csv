@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_stock_extention_stock_extention,stock_extention.stock_extention,model_stock_extention_stock_extention,base.group_user,1,1,1,1

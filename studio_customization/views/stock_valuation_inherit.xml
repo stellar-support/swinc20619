@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit stock valuation View to Modify it -->
+        <record id="stock_valuation_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.valuation.layer.tree.inherit</field>
+            <field name="model">stock.valuation.layer</field>
+            <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[1]/field[@name='quantity']" position="after">
+                <field name="qty_at_date_1" sum="Stock Valuation" string="Quantity Stock + RMA"/>
+                <field name="stock_value" sum="Stock Valuation"/>
+                <field name="lst_price" attrs="{}" invisible="1"/>
+                <field name="unit_price" sum="Stock Valuation"/>
+              </xpath>
+                <xpath expr="//tree[1]/field[@name='stock_value']" position="attributes">
+                <attribute name="attrs">{}</attribute>
+                <attribute name="invisible">1</attribute>
+              </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

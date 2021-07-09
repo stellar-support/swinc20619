@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="attributes">
+                    <attribute name="string">Item Number</attribute>
+                </xpath>
+                  <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="qty_sold" string="Qty Sold"/>
+                  </xpath>
+                  <xpath expr="//field[@name='description_sale']" position="after">
+                    <field name="website_meta_description" string="Website Description"/>
+                  </xpath>
+                  <xpath expr="//form[@name='Product Template']/sheet[1]/notebook[1]" position="inside">
+                    <page name="studio_page_t6ne2" string="Sales Orders">
+                      <group name="studio_group_t6ne2">
+                        <group name="studio_group_t6ne2_left">
+                          <field name="qty_outgoing" string="Qty Outgoing"/>
+                          <field name="qty_incoming"/>
+                        </group>
+                        <group name="studio_group_t6ne2_right"/>
+                      </group>
+                      <field name="field_cghBZ" string="Sales price list by item">
+                        <tree string="Sales Analysis Report">
+                          <field name="date"/>
+                          <field name="partner_id"/>
+                          <field name="product_uom_qty"/>
+                          <field name="qty_invoiced"/>
+                          <field name="untaxed_amount_invoiced"/>
+                        </tree>
+                      </field>
+                    </page>
+                    <page name="studio_page_SQ0nc" string="Purchases">
+                      <group name="studio_group_SQ0nc">
+                        <group name="studio_group_SQ0nc_left">
+                          <field name="incoming_items" string="Qty Incoming"/>
+                        </group>
+                        <group name="studio_group_SQ0nc_right"/>
+                      </group>
+                      <field name="field_rghuK">
+                        <tree string="Purchase Report">
+                          <field name="date_order"/>
+<!--                          <field name="unit_quantity"/>-->
+                          <field name="price_average"/>
+<!--                          <field name="price_standard"/>-->
+                        </tree>
+                      </field>
+                    </page>
+                  </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Tree View to Modify it -->
+        <record id="product_product_tree_inherit" model="ir.ui.view">
+            <field name="name">product_product_tree_inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[1]/field[@name='name']" position="after">
+                    <field name="field_EI5S4"/>
+                </xpath>
+              <xpath expr="//field[@name='product_template_attribute_value_ids']" position="after">
+                <field name="pricelist_name" string="Pricelist name" attrs="{}" invisible="1"/>
+              </xpath>
+              <xpath expr="//field[@name='lst_price']" position="attributes">
+                <attribute name="widget">monetary</attribute>
+              </xpath>
+              <xpath expr="//field[@name='price']" position="attributes">
+                <attribute name="invisible"/>
+                <attribute name="attrs">{}</attribute>
+                <attribute name="string">Pricelist Price</attribute>
+              </xpath>
+<!--                <xpath expr="//field[@name='qty_at_date']" position="attributes">-->
+<!--                    <attribute name="attrs">{}</attribute>-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="//tree[1]/field[@name='uom_id']" position="attributes">
+                        <attribute name="attrs">{}</attribute>
+                        <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree[1]/field[@name='name']" position="after">
+                    <field name="vendor_name" string="Vendor Name"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_product_form_inherit" model="ir.ui.view">
+            <field name="name">product.product.form.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[1]/field[@name='categ_id']" position="before">
+                    <field name="name"/>
+                    <field name="name"/>
+                    <field name="name"/>
+                    <field name="name"/>
+                    <field name="name"/>
+                    <xpath expr="//tree[1]/field[@name='product_tmpl_id']" position="move"/>
+                    <field name="field_EI5S4"/>
+                    <field name="name"/>
+                    <field name="name"/>
+                </xpath>
+
+                <xpath expr="//tree[1]/field[@name='name']" position="replace">
+                        <field name="product_tmpl_id"/>
+                        <field name="product_tmpl_id"/>
+                        <field name="product_tmpl_id"/>
+                        <field name="product_tmpl_id"/>
+                </xpath>
+                  <xpath expr="//tree[1]/field[@name='categ_id']" position="after">
+                    <field name="pricelist_name" widget="selection" context="{'pricelist': self}"/>
+                  </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

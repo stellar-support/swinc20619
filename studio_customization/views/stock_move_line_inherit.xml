@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Tree View to Modify it -->
+        <record id="stock_move_line_tree_inherit_1" model="ir.ui.view">
+            <field name="name">stock.move.line.tree.inherit_1</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_tree"/>
+            <field name="arch" type="xml">
+
+                  <xpath expr="//tree[1]/field[@name='date']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                  </xpath>
+
+                <xpath expr="//tree[1]/field[@name='product_id']" position="replace">
+                    <field name="customer_name" string="Customer Name"/>
+                    <field name="rma_customer_number" attrs="{}" invisible="1"/>
+                    <field name="rma_request_type" attrs="{}" invisible="1"/>
+                    <field name="item_number" string="item number"/>
+                    <field name="product_name" string="product name"/>
+                    <field name="vendor_name" string="Vendor Name" attrs="{}" invisible="1"/>
+                    <field name="lot_id"/>
+                    <field name="notes" attrs="{}" invisible="1"/>
+                </xpath>
+                  <xpath expr="//tree[1]/field[@name='date']" position="after">
+                    <field name="create_uid"/>
+                    <field name="invoice_date"/>
+                    <field name="create_date"/>
+                    <field name="invoice_number"/>
+                  </xpath>
+                  <xpath expr="//tree[1]/field[@name='reference']" position="attributes">
+                    <attribute name="string">Move Reference</attribute>
+                  </xpath>
+                  <xpath expr="//tree[1]/field[@name='location_id']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//tree[1]/field[@name='location_dest_id']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//tree[1]/field[@name='location_dest_id']" position="after">
+                    <field name="ordered_qty" string="Ordered Qty" attrs="{}" invisible="1"/>
+                  </xpath>
+                  <xpath expr="//tree[1]/field[@name='qty_done']" position="after">
+                    <field name="unit_price_1" string="Unit Price"/>
+                    <field name="unit_price_after_discount" attrs="{}" invisible="1"/>
+                    <field name="subtotal" string="Subtotal" attrs="{}" invisible="1"/>
+                    <field name="currency_id" attrs="{}" invisible="1"/>
+                  </xpath>
+                  <xpath expr="//tree[1]/field[@name='product_uom_id']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                  </xpath>
+                  <xpath expr="//tree[1]/field[@name='state']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                  </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

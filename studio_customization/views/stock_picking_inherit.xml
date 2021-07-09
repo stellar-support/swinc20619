@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="stock_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='note']" position="replace"/>
+                  <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Customer</attribute>
+                  </xpath>
+              <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='picking_type_id']" position="attributes">
+                <attribute name="attrs">{"readonly": [["state","!=","draft"]]}</attribute>
+                <attribute name="invisible">1</attribute>
+              </xpath>
+                  <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='picking_type_id']" position="after">
+                    <xpath expr="//field[@name='origin']" position="move"/>
+                    <xpath expr="//field[@name='scheduled_date']" position="move"/>
+                  </xpath>
+                  <xpath expr="//field[@name='date_done']" position="before">
+                    <field name="delivery_method" string="Delivery Method" attrs="{}" invisible="1"/>
+                    <field name="po_" string="PO # " attrs="{&quot;invisible&quot;: [[&quot;operation_type&quot;,&quot;!=&quot;,&quot;PO Receipts&quot;]]}"/>
+                    <field name="invoice_number" attrs="{&quot;invisible&quot;: [[&quot;operation_type&quot;,&quot;!=&quot;,&quot;PO Receipts&quot;]]}"/>
+                    <field name="so_" string="SO #" attrs="{&quot;invisible&quot;: [[&quot;operation_type&quot;,&quot;!=&quot;,&quot;PO Receipts&quot;]]}"/>
+                    <field name="bill_reference_" string="Bill Reference #" attrs="{&quot;invisible&quot;: [[&quot;operation_type&quot;,&quot;!=&quot;,&quot;PO Receipts&quot;]]}"/>
+                    <field name="global_comments" string="Global Comments:" attrs="{&quot;invisible&quot;: [[&quot;operation_type_id&quot;,&quot;!=&quot;,2]]}"/>
+                    <field name="warehouse_notes_1" string="Warehouse Notes:" attrs="{&quot;invisible&quot;: [[&quot;operation_type_id&quot;,&quot;!=&quot;,2]]}"/>
+                    <field name="customer_po_onPickSlip" attrs="{&quot;invisible&quot;: [[&quot;operation_type_id&quot;,&quot;!=&quot;,2]]}"/>
+                    <field name="operation_type" string="Operation Type" attrs="{}" invisible="1"/>
+                    <field name="operation_type_id" string="Operation Type ID" attrs="{}" invisible="1"/>
+                    <field name="stellar_status_picking" string="stellar_status_picking" attrs="{}" invisible="1"/>
+                  </xpath>
+                  <xpath expr="//field[@name='date_done']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='date_done']" position="after">
+                    <field name="pink_slip" string="Pink Slip #:" attrs="{&quot;invisible&quot;: [[&quot;picking_type_id&quot;,&quot;!=&quot;,39]]}"/>
+                    <field name="argo_reference" string="Argo Reference #:" attrs="{&quot;invisible&quot;: [[&quot;picking_type_id&quot;,&quot;!=&quot;,39]]}"/>
+                  </xpath>
+<!--                  <xpath expr="//field[@name='product_uom_id']" position="attributes">-->
+<!--                    <attribute name="attrs">{"readonly": [["state","!=","draft"]]}</attribute>-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                  </xpath>-->
+                  <xpath expr="//form/group[1]/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="readonly"/>
+                  </xpath>
+                  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/button[@name='action_put_in_pack']" position="after">
+                    <field name="untaxes_amount" string="Untaxes Amount" attrs="{}" invisible="1"/>
+                    <field name="po_taxes" string="PO taxes" attrs="{}" invisible="1"/>
+                    <field name="field_FRcQD" string="PO Total" attrs="{}" invisible="1"/>
+                  </xpath>
+                  <xpath expr="//field[@name='quantity_done']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                  </xpath>
+                  <xpath expr="//field[@name='scheduled_date']" position="attributes">
+                    <attribute name="attrs">{"readonly": ["|",["id","=",False],["state","in",["done","cancel"]]], "required": [["id","!=",False]]}</attribute>
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="string">Schedule Date</attribute>
+                  </xpath>
+            </field>
+        </record>
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="stock_picking_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.tree.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[1]/field[@name='location_dest_id']" position="attributes">
+                    <attribute name="attrs">{"readonly": [["state","not in",["draft"]]]}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+              <xpath expr="//tree[1]/field[@name='partner_id']" position="attributes">
+                <attribute name="string">Customer</attribute>
+              </xpath>
+              <xpath expr="//tree[1]/field[@name='origin']" position="after">
+                <field name="stage" string="Stage"/>
+              </xpath>
+              <xpath expr="//tree[1]/field[@name='backorder_id']" position="attributes">
+                <attribute name="attrs">{"readonly": [["state","in",["done","cancel"]]]}</attribute>
+                <attribute name="invisible">1</attribute>
+              </xpath>
+              <xpath expr="//tree[1]/field[@name='state']" position="after">
+                <field name="create_uid"/>
+              </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
