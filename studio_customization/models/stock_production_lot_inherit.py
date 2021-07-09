@@ -5,4 +5,4 @@ class StockProctionLotInherit(models.Model):
 
     sales_order = fields.Char(
         string='Sale Order',
-        required=False, readonly=True)
+        required=False, readonly=True, related="sale_order_ids.name")

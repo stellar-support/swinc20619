@@ -14,7 +14,7 @@
                 <attribute name="string">Pick Slip</attribute>
               </xpath>
               <xpath expr="//field[@name='partner_shipping_id']" position="after">
-                <field name="comment_1" string="Global Comments:"/>
+                <field name="comments_1" string="Global Comments:"/>
 <!--                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='partner_note']/group[@name='partner_note']/field[@name='partner_note']" position="move"/>-->
               </xpath>
               <xpath expr="//field[@name='validity_date']" position="before">
@@ -26,7 +26,7 @@
                 <field name="argo_so" string="Argo SO #"/>
                 <field name="customer_po_" string="Customer PO #:"/>
                 <field name="customer_notes" string="Customer Notes:"/>
-                <field name="YR61u" string="invoice count to update" attrs="{}" invisible="1"/>
+                <field name="field_YR61u" string="invoice count to update" attrs="{}" invisible="1"/>
               </xpath>
               <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/form[1]/label[1]" position="attributes">
                 <attribute name="string">Item name</attribute>
@@ -81,7 +81,16 @@
               <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='discount']" position="attributes">
                 <attribute name="attrs">{}</attribute>
               </xpath>
-
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page string="Notes" name="partner_note">
+                    <group string="Website" name="partner_note" >
+                        <field name="partner_note" />
+                    </group>
+                </page>
+            </xpath>
+			<xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+                <attribute name="class">send_confirmation_email</attribute>
+            </xpath>
        </field>
    </record>
 

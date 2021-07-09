@@ -9,14 +9,14 @@
             <field name="arch" type="xml">
                 <xpath expr="//tree[1]/field[@name='quantity']" position="after">
                 <field name="qty_at_date_1" sum="Stock Valuation" string="Quantity Stock + RMA"/>
-                <field name="stock_value" sum="Stock Valuation"/>
+                <field name="stock_value_1" sum="Stock Valuation"/>
                 <field name="lst_price" attrs="{}" invisible="1"/>
                 <field name="unit_price" sum="Stock Valuation"/>
               </xpath>
-                <xpath expr="//tree[1]/field[@name='stock_value']" position="attributes">
+                <!-- <xpath expr="//tree[1]/field[@name='stock_value']" position="attributes">
                 <attribute name="attrs">{}</attribute>
                 <attribute name="invisible">1</attribute>
-              </xpath>
+              </xpath> -->
             </field>
         </record>
     </data>

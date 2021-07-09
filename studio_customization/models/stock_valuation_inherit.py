@@ -8,7 +8,7 @@ class StockValuationInherit(models.Model):
         string='Quantity Stock + RMA',
         required=False, readonly=True, copy=True)
 
-    stock_value = fields.Float(
+    stock_value_1 = fields.Float(
         string='Cost Amount',
         required=False, readonly=True, copy=True)
 
@@ -16,5 +16,5 @@ class StockValuationInherit(models.Model):
         'Public Price')
 
     unit_price = fields.Monetary(
-        tring='Price',
+        string='Price',
         required=False, readonly=True, copy=True)

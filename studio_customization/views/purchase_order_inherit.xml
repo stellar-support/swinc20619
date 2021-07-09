@@ -43,7 +43,7 @@
                     <field name="bill_reference_" string="Bill Reference #:"/>
                     <field name="term" string="Term"/>
                     <field name="comments_po" string="Comments:"/>
-                    <field name="picking_count" attrs="{}" invisible="1"/>
+                    <field name="picking_count_1" attrs="{}" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='origin']" position="attributes">
                     <attribute name="attrs">{}</attribute>

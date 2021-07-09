@@ -42,3 +42,8 @@ class ResPartnerInherit(models.Model):
     customer = fields.Boolean(
         string='Is a Customer',
         required=False,copy=True)
+
+    subscribed_to_confirmation_email = fields.Boolean(
+        'Subscribed to sale order confirmation email',
+        help="""Any user whose form part of a sales team and has this
+                field checked will receive an email when a sale order is confirmed""")

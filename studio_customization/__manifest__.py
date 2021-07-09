@@ -20,11 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','website_sale','stock','documents_account','product','stock_account'],
+    'depends': ['base','sale','website_sale','stock','documents_account','product','stock_account', 'purchase'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'views/assets.xml',
         'views/account_move_inherit.xml',
         'views/res_partner_inherit.xml',
         'views/purchase_order_inherit.xml',
@@ -36,6 +37,9 @@
         'views/stock_picking_inherit.xml',
         'views/stock_picking_stage.xml',
         'views/templates.xml',
+        'views/bank_statement_view.xml',
+        'views/delivery_views.xml',
+        'views/res_users_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

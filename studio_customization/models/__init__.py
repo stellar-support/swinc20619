@@ -10,4 +10,8 @@ from . import stock_valuation_inherit
 from . import stock_move_line_inherit
 from . import stock_picking_inherit
 from . import stock_picking_stage
-
+from . import delivery_carrier
+from . import payment_acquirer
+from . import payment_transaction
+from . import res_users
+from . import stock_quant

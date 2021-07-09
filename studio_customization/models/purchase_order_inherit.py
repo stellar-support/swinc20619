@@ -6,9 +6,9 @@ from odoo import models, fields, api
 class PurchaseOrderInherit(models.Model):
     _inherit = 'purchase.order'
 
-    picking_count = fields.Integer(
+    picking_count_1 = fields.Integer(
         string='Picking Count',
-        required=False,readonly=True)
+        required=False,readonly=True, related="picking_count")
 
     purchase_stellar_status = fields.Char(
         string='Stellar Status',
@@ -57,15 +57,15 @@ class PurchaseOrderLineInherit(models.Model):
 
     bill_count = fields.Integer(
         string='Bill Count',
-        required=False)
+        required=False, related="order_id.invoice_count")
 
     purchase_qty_ordered = fields.Float(
         string='Qty Ordered Po',
-        required=False,readonly=True)
+        required=False,readonly=True, related="product_qty")
 
     _field_Vhfzt = fields.Integer(
         string='New Related Field',
-        required=False,readonly=True)
+        required=False,readonly=True, related="order_id.picking_count")
 
     qty_ordered = fields.Float(
         string='Qty Ordered',
@@ -73,5 +73,5 @@ class PurchaseOrderLineInherit(models.Model):
 
     stellar_status_po = fields.Char(
         string='Stellar_status_po',
-        required=False,readonly=True)
+        required=False,readonly=True, related="order_id.purchase_stellar_status")
 

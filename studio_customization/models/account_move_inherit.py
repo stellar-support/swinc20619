@@ -9,15 +9,15 @@ class AccountMoveInherit(models.Model):
 
     customer_notes = fields.Text(
         string="Customer Notes",
-        required=False,readonly=True)
+        required=False,readonly=True, related="partner_id.comment")
 
     customer_po = fields.Char(
         string='Customer Po#',
-        required=False)
+        required=False, related="invoice_line_ids.sale_line_ids.order_id.customer_po_")
 
     field_OQDvV = fields.Text(
         string="New Related Field",
-        required=False, readonly= True)
+        required=False, readonly= True, related="commercial_partner_id.sale_order_ids.picking_ids.global_comments")
 
     field_t1owR = fields.Char(
         string='Customer po #',
@@ -41,7 +41,7 @@ class AccountMoveInherit(models.Model):
 
     global_comments = fields.Text(
         string="Global Comments",
-        required=False)
+        required=False, related="invoice_line_ids.sale_line_ids.order_id.comments_1")
 
     comments_invoice = fields.Text(
         string="Invoice Notes",
@@ -52,11 +52,11 @@ class AccountMoveInherit(models.Model):
         selection=[('SATURDAY DELIVERY', 'SATURDAY DELIVERY'),
                    ('PUROLATOR', 'PUROLATOR'),
                    ('UPS', 'UPS'), ],
-        required=False, )
+        required=False, related="invoice_line_ids.sale_line_ids.order_id.delivery_method")
 
     warehouse_note = fields.Text(
         string="Warehouse Note",
-        required=False)
+        required=False, related="invoice_line_ids.sale_line_ids.order_id.note")
 
 
 
@@ -65,23 +65,23 @@ class AccountMoveLineInherit(models.Model):
 
     invoice_count = fields.Integer(
         string='Invoice Count',
-        required=False,readonly=True,copy=True)
+        required=False,readonly=True,copy=True, related="sale_line_ids.order_id.invoice_count")
 
     qty_Delivered = fields.Float(
         string='Qty Delivered',
-        required=False,readonly=True)
+        required=False,readonly=True, related="sale_line_ids.qty_delivered")
 
     qty_ordered = fields.Float(
         string=' Qty Ordered',
-        required=False,readonly=True,copy=True)
+        required=False,readonly=True,copy=True, related="sale_line_ids.product_uom_qty")
 
     bill_count = fields.Integer(
         string=' Bill Count',
-        required=False,readonly=True)
+        required=False,readonly=True, related="purchase_line_id.bill_count")
 
     cost = fields.Float(
         string='Cost',
-        required=False,readonly=True)
+        required=False,readonly=True, related="product_id.standard_price")
 
     field_76kO1 = fields.Char(
         string='Field 76kO1',
@@ -89,11 +89,11 @@ class AccountMoveLineInherit(models.Model):
 
     field_hjhZ3 = fields.Char(
         string='New Related Field',
-        required=False,readonly=True)
+        required=False,readonly=True, related="purchase_line_id.sale_order_id.order_line.field_A6aTY")
 
     field_mY2ct = fields.Char(
         string='New Related Field',
-        required=False,readonly=True)
+        required=False,readonly=True, related="purchase_id.order_line.sale_order_id.order_line.notes")
 
     notes = fields.Char(
         string='Note',
@@ -101,11 +101,11 @@ class AccountMoveLineInherit(models.Model):
 
     notes_1 = fields.Char(
         string='Notes',
-        required=False)
+        required=False, related="sale_line_ids.field_A6aTY")
 
     purchases_qty_received_accumulate = fields.Float(
         string='Purchases Qty Received Accumulate',
-        required=False,readonly=True)
+        required=False,readonly=True, related="purchase_line_id.qty_received")
 
     qty_bo= fields.Float(
         string='Qty BO',
@@ -115,9 +115,9 @@ class AccountMoveLineInherit(models.Model):
         string='Qty BO',
         required=False,readonly=True,compute='_compute_qty_bo_po')
 
-    qty_ordered = fields.Float(
-        string='Qty Ordered',
-        required=False,readonly=True,compute='_compute_qty_ordered_')
+    # qty_ordered = fields.Float(
+        # string='Qty Ordered',
+        # required=False,readonly=True,compute='_compute_qty_ordered_')
 
     qty_ordered_good_1 = fields.Float(
         string=' Qty Ordered',
@@ -125,7 +125,7 @@ class AccountMoveLineInherit(models.Model):
 
     qty_ordered_original = fields.Float(
         string=' Qty Ordered Original',
-        required=False,readonly=True)
+        required=False,readonly=True, related="purchase_line_id.purchase_qty_ordered")
 
     serial_number = fields.Text(
         string="Serial Number",
@@ -222,3 +222,8 @@ class AccountMoveLineInherit(models.Model):
                 record['qty_bo'] = record.qty_ordered - record.quantity
             else:
                 record['qty_bo'] = record.qty_ordered_good_1 - record.quantity
+
+
+class AccountBankStatement(models.Model):
+    _name = "account.bank.statement"
+    _inherit = ['account.bank.statement', 'mail.thread', 'mail.activity.mixin']
