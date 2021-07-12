@@ -52,6 +52,8 @@
         'views/template/website_sale_templates.xml',
         'views/template/payment_templates.xml',
         'views/template/portal_templates.xml',
+        'report/report_dwjo.xml',
+        'report/report_dwjo_template.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

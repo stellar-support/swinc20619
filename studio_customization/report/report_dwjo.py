@@ -141,7 +141,7 @@ class ReportDwjo(models.Model):
 
 
 class ReportDwjoPdf(models.AbstractModel):
-    _name = "report.stellar.report_dwjo"
+    _name = "report.studio_customization.report_dwjo"
     _description = "Suggested Reorder Report"
 
     @api.model
