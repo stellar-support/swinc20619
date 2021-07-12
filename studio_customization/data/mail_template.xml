@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Sale Order: Cart Recovery Email -->
+    <record id="website_sale.mail_template_sale_cart_recovery" model="mail.template">
+        <field name="body_html" type="xml">
+            <!-- Main table -->
+            <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                <tr>
+                    <td align="center">
+
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                            <tbody>
+                                <!-- HEADER -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px;">
+                                        % set company = object.company_id or object.user_id.company_id or user.company_id
+                                        <img src="/logo.png?company=${company.id}" style="padding: 0px; margin: 0px; height: auto; width: 180px;" alt="${company.name}"/>
+                                    </td>
+                                </tr>
+                                <!-- H1 -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px; color: black; font-size: 50px">
+                                        We notice you left <br/>
+                                        something in your cart<br/>
+                                    </td>
+                                </tr>
+                                <!-- H2 -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px; color: black; font-size: 16px; margin-top: 10px;">
+                                        <br/><br/>${object.partner_id.name}, Would you like to complete your purchase?<br/><br/>
+
+                                        % if object.order_line:
+                                            % for line in object.website_order_line:
+                                                <hr/>
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td style="padding: 10px; width:150px;">
+                                                            <img src="/web/image/product.product/${line.product_id.id}/image" height="100px" width="100px" alt="Product image"></img>
+                                                        </td>
+                                                        <td>
+                                                            <strong>${line.product_id.display_name}</strong>
+                                                        </td>
+                                                        <td width="100px" align="right">
+                                                            ${(line.product_uom_qty) | int} ${(line.product_uom.name)}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            % endfor
+                                            <hr/>
+                                        % endif
+                                    </td>
+                                </tr>
+                                <!-- Resume button -->
+                                <tr>
+                                    <td><br/><br/>
+                                        <div style="text-align: center; margin: 16px 0px 16px 0px; font-size: 14px;">
+                                            <a href="${object.get_base_url()}/shop/cart?access_token=${object.access_token}"
+                                                target="_blank"
+                                                style="background-color: #0c2a56; padding: 14px 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size:20px;">
+                                                Resume your order
+                                            </a>
+                                        </div>
+                                        <br/><br/>
+                                    </td>
+                                </tr>
+                                <!-- FOOTER -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px; background-color: #fec470; color: #0c2a56; font-weight: bold;">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; font-size: 16px; padding: 12px; border-collapse:separate;">
+                                            <tr>
+                                                <td valign="middle" align="center" colspan="2">
+                                                    Connect with Us <br/><br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle" align="center" style="width: 50%; color: #0c2a56;">
+                                                    % if company.email
+                                                        <img width="23" src="/web/image/stellar.icon-telephone" class="img-responsive" /> ${company.phone}
+                                                    % endif
+                                                </td>
+                                                <td valign="middle" style='width: 50%; text-align: center;' rowspan="2">
+                                                    % if company.partner_id
+                                                        % set contact = company.partner_id
+                                                        % set address = contact.contact_address.replace(contact.name,'')
+                                                        <img width="23" src="/web/image/stellar.icon-placeholder" class="img-responsive" /> ${address}
+                                                    % endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle" align="center" style="color: #0c2a56; width: 50%;">
+                                                % if company.email
+                                                    <img width="23" src="/web/image/stellar.icon-message" class="img-responsive" /> <a href="mailto:${company.email}" style="text-decoration:none; color: #0c2a56;">${company.email}</a>
+                                                % endif
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+        </field>
+    </record>
+
+    <!-- Sales Order: Send by email -->
+    <record id="sale.email_template_edi_sale" model="mail.template">
+        <field name="body_html" type="xml">
+            <!-- Main table -->
+            <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                <tr>
+                    <td align="center">
+
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                            <tbody>
+                                <!-- HEADER -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px;" colspan="2">
+                                        % set company = object.company_id or object.user_id.company_id or user.company_id
+                                        <img src="/logo.png?company=${company.id}" style="padding: 0px; margin: 0px; height: auto; width: 100px;" alt="${company.name}"/>
+                                    </td>
+                                </tr>
+                                <!-- Header -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px; color: black; font-size: 30px" colspan="2">
+                                        WE'VE RECEIVED YOUR ORDER!
+                                        <br/><br/>
+                                    </td>
+                                </tr>
+                                <!-- Sumary -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px; color: black; font-size: 16px; margin-top: 10px; font-weight: bold;" colspan="2">
+
+                                        ${object.partner_id.name}
+
+                                        % if object.partner_id.parent_id:
+                                            - ${object.partner_id.parent_id.name}
+                                        % endif
+
+                                        , Thank you for your business. <br/><br/>
+
+                                        You will find a summary of your recent purchase in the link below. <br/><br/>
+
+                                        Please allow up to 2 business days ( excluding weekends and Statutory holidays) to process and ship your order.<br/><br/>
+
+                                    </td>
+                                </tr>
+                                <!-- Order info -->
+                                <tr>
+                                    <td align="center" style="color: black; font-size: 16px; margin-top: 10px;">
+                                        Order Number: ${object.name}
+                                        <br/><br/>
+                                    </td>
+                                    <td align="center" style=" color: black; font-size: 16px; margin-top: 10px;">
+                                        Order Date: ${format_date(object.date_order)}
+                                        <br/><br/>
+                                    </td>
+                                </tr>
+                                <!-- Resume button -->
+                                <tr>
+                                    <td align="center" style="color: black; font-size: 16px; margin-top: 10px;">
+                                        Review my order<br/>
+                                        <a href="${object.get_base_url()}${object.get_portal_url()}"
+                                            target="_blank"
+                                            style="">
+                                                LINK
+                                        </a>
+                                        <br/><br/>
+
+                                    </td>
+                                    <td align="center" style="color: black; font-size: 16px; margin-top: 10px;">
+                                        Contact Customer Service<br/>
+                                        ${company.phone}
+                                        <br/><br/>
+
+                                    </td>
+                                </tr>
+                                <!--  Client notes -->
+                                <tr>
+                                    <td align="center" style="color: black; font-size: 16px; margin-top: 10px;" colspan="2">
+                                        % if object.partner_note:
+                                            <b>Client Notes:</b><br/>${object.partner_note}
+                                            <br/><br/>
+                                        % endif
+                                    </td>
+                                </tr>
+                                <!-- FOOTER -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px; background-color: #fec470; color: #0c2a56; font-weight: bold;" colspan="2">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; font-size: 16px; padding: 12px; border-collapse:separate;">
+                                            <tr>
+                                                <td valign="middle" align="center" colspan="2">
+                                                    Connect with Us <br/><br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle" align="center" style="width: 50%; color: #0c2a56;">
+                                                    % if company.email
+                                                        <img width="23" src="/web/image/stellar.icon-telephone" class="img-responsive" /> ${company.phone}
+                                                    % endif
+                                                </td>
+                                                <td valign="middle" style='width: 50%; text-align: center;' rowspan="2">
+                                                    % if company.partner_id
+                                                        % set contact = company.partner_id
+                                                        % set address = contact.contact_address.replace(contact.name,'')
+                                                        <img width="23" src="/web/image/stellar.icon-placeholder" class="img-responsive" /> ${address}
+                                                    % endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle" align="center" style="color: #0c2a56; width: 50%;">
+                                                % if company.email
+                                                    <img width="23" src="/web/image/stellar.icon-message" class="img-responsive" /> <a href="mailto:${company.email}" style="text-decoration:none; color: #0c2a56;">${company.email}</a>
+                                                % endif
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+        </field>
+    </record>
+
+    <record id="email_sale_order_confirmation" model="mail.template">
+        <field name="name">Sales Order: Sent email of order confirmation</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="subject">${object.company_id.name} Order (Ref ${object.name or 'n/a' }) Has Been Confirmed</field>
+        <field name="body_html" type="html">
+            <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                <tr>
+                    <td align="center">
+
+                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                            <tbody>
+                                <tr>
+                                    <td align="center" style="min-width: 590px;" colspan="2">
+                                        % set company = object.company_id or object.user_id.company_id or user.company_id
+                                        <img src="/logo.png?company=${company.id}" style="padding: 0px; margin: 0px; height: auto; width: 100px;" alt="${company.name}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="min-width: 590px; color: black; font-size: 16px; margin-top: 10px; font-weight: bold;" colspan="2">
+                                        The following order has been confirmed. <br/><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="color: black; font-size: 16px; margin-top: 10px;">
+                                        Order Number: ${object.name}
+                                        <br/><br/>
+                                    </td>
+                                    <td align="center" style=" color: black; font-size: 16px; margin-top: 10px;">
+                                        Order Date: ${format_date(object.date_order)}
+                                        <br/><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="color: black; font-size: 16px; margin-top: 10px;">
+                                        Contact Customer Service<br/>
+                                        ${company.phone}
+                                        <br/><br/>
+                                    </td>
+                                </tr>
+                                <!-- FOOTER -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px; background-color: #fec470; color: #0c2a56; font-weight: bold;" colspan="2">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; font-size: 16px; padding: 12px; border-collapse:separate;">
+                                            <tr>
+                                                <td valign="middle" align="center" colspan="2">
+                                                    Connect with Us <br/><br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle" align="center" style="width: 50%; color: #0c2a56;">
+                                                    % if company.email
+                                                        <img width="23" src="/web/image/stellar.icon-telephone" class="img-responsive" /> ${company.phone}
+                                                    % endif
+                                                </td>
+                                                <td valign="middle" style='width: 50%; text-align: center;' rowspan="2">
+                                                    % if company.partner_id
+                                                        % set contact = company.partner_id
+                                                        % set address = contact.contact_address.replace(contact.name,'')
+                                                        <img width="23" src="/web/image/stellar.icon-placeholder" class="img-responsive" /> ${address}
+                                                    % endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle" align="center" style="color: #0c2a56; width: 50%;">
+                                                % if company.email
+                                                    <img width="23" src="/web/image/stellar.icon-message" class="img-responsive" /> <a href="mailto:${company.email}" style="text-decoration:none; color: #0c2a56;">${company.email}</a>
+                                                % endif
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </field>
+        <field name="report_template" ref="sale.action_report_saleorder"/>
+        <field name="report_name">${(object.name or '').replace('/','_')}</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <!-- <field name="user_signature" eval="False"/> -->
+        <field name="auto_delete" eval="False"/>
+    </record>
+
+</odoo>

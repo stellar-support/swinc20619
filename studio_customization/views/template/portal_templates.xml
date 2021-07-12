@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- my/orders-->
+    <template id="portal_my_orders" inherit_id="sale.portal_my_orders">
+        <!-- Add status header-->
+        <xpath expr="//t[@t-call='portal.portal_table']/thead//th[last()]" position="before">
+            <th class="text-right order_state">State</th>
+        </xpath>
+        <!-- Add status field -->
+        <xpath expr="//t[@t-call='portal.portal_table']/t[@t-foreach='orders']//td[last()]" position="before">
+            <td class="text-right order_state"><span t-field="order.state"/></td>
+        </xpath>
+    </template>
+
+    <!-- my/order-->
+    <template id="sale_order_portal_content" name="Sales Order Portal Content" inherit_id="sale.sale_order_portal_content" priority='17'>
+        <!-- Remove UOM in order_lines-Quantity -->
+        <xpath expr="//section[@id='details']//tbody[hasclass('sale_tbody')]//t[@t-if='not line.display_type']//span[@t-field='line.product_uom']" position="attributes">
+            <attribute name='class'>d-none</attribute>
+        </xpath>
+        <!-- Limit 2 decimal in price_unit -->
+        <xpath expr="//section[@id='details']//tbody[hasclass('sale_tbody')]//t[@t-if='not line.display_type']//td[contains(@t-attf-class, 'd-sm-table-cell')]/div[@t-field='line.price_unit']" position="attributes">
+            <attribute name='t-options'>{"widget": "float", "precision": 2}</attribute>
+        </xpath>
+        <!-- Limit 2 decimal in price_unit with discount -->
+        <xpath expr="//section[@id='details']//tbody[hasclass('sale_tbody')]//t[@t-if='not line.display_type']//div[@t-if='line.discount']/t[contains(@t-options, 'decimal_precision')]" position="attributes">
+            <attribute name='t-options'>{"widget": "float", "precision": 2}</attribute>
+        </xpath>
+        <!-- hyp-none class was added to avoid word splitting -->
+        <xpath expr="//section[@id='details']//thead//th[hasclass('text-right')] " position="attributes">
+            <attribute name='class' add='hyp-none' separator=' ' />
+        </xpath>
+    </template>
+
+    <!-- my/home-->
+    <template id="portal_layout" inherit_id="portal.portal_layout">
+        <xpath expr="//div[hasclass('o_portal_my_details')]/h4/a[@href='/my/account']" position="attributes">
+            <attribute name='class' add='d-none' separator=' ' />
+        </xpath>
+    </template>
+
+    <!-- my/invoices-->
+    <template id="portal_my_invoices" inherit_id="account.portal_my_invoices" priority='17'>
+    <!-- Filter pending stellar transactions LIKE (manual and transfer) -->
+    <!-- commented by ksolves -->
+        <!-- Show Pay Now Button -->
+        <!-- <xpath expr="//td/t[@t-set='pending_manual_txs' and contains(@t-value, 'transfer')]" position="attributes">
+            <attribute name='t-value'>tx_ids.filtered(lambda tx: tx.state == 'pending' and tx.acquirer_id.provider in ('transfer', 'manual', 'stellar'))</attribute>
+        </xpath> -->
+        <!-- Show Waiting for Payment -->
+        <xpath expr="//td[hasclass('tx_status')]//span[hasclass('badge-info', 'badge-pill')]/.." position="attributes">
+            <attribute name='t-if'>invoice.state == 'open' and (last_tx.state not in ['pending', 'authorized', 'done', 'cancel'] or (last_tx.state == 'pending' and last_tx.acquirer_id.provider in ('transfer', 'manual', 'stellar')))</attribute>
+        </xpath>
+        <!-- Hide Pending -->
+        <xpath expr="//td[hasclass('tx_status')]//span[hasclass('badge-warning', 'badge-pill')]/.." position="attributes">
+            <attribute name='t-if'>invoice.state == 'open' and last_tx.state == 'pending' and last_tx.acquirer_id.provider not in ('transfer', 'manual', 'stellar')</attribute>
+        </xpath>
+    </template>
+
+    <!-- my/invoice-->
+    <template id="portal_invoice_page" inherit_id="account.portal_invoice_page" priority='17'>
+    <!-- Filter pending stellar transactions LIKE (manual and transfer) -->
+        <!-- commented by ksolves -->
+        <!-- Show Pay Button in sidebar -->
+        <!-- <xpath expr="//t[@t-set='pending_manual_txs']" position="attributes">
+            <attribute name='t-value'>tx_ids.filtered(lambda tx: tx.state == 'pending' and tx.acquirer_id.provider in ('transfer', 'manual', 'stellar'))</attribute>
+        </xpath> -->
+    </template>
+
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="icon-telephone" model="ir.attachment">
+        <field name="name">icon-telephone</field>
+        <field name="type">url</field>
+        <field name="url">/stellar/static/src/img/telephone.png</field>
+        <field name="public" eval="True"/>
+    </record>
+    <record id="icon-message" model="ir.attachment">
+        <field name="name">icon-message</field>
+        <field name="type">url</field>
+        <field name="url">/stellar/static/src/img/message.png</field>
+        <field name="public" eval="True"/>
+    </record>
+    <record id="icon-placeholder" model="ir.attachment">
+        <field name="name">icon-placeholder</field>
+        <field name="type">url</field>
+        <field name="url">/stellar/static/src/img/placeholder.png</field>
+        <field name="public" eval="True"/>
+    </record>
+</odoo>

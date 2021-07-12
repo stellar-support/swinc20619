@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+        <record id="payment_acquirer_stellar" model="payment.acquirer">
+            <field name="name">Stellar Payment</field>
+            <field name="image" type="base64" file="stellar/static/src/img/stellar.png"/>
+            <field name="provider">stellar</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="view_template_id" ref="stellar_form"/>
+            <field name="environment">prod</field>
+            <field name="payment_flow">form</field>
+            <field name="website_published" eval="True"/>
+            <field name="pre_msg"><![CDATA[
+<p>Confirm order.</p>]]>
+            </field>
+            <field name="post_msg">&lt;h4&gt;Communication&lt;/h4&gt;
+&lt;p&gt;Please use the order name as communication reference.&lt;/p&gt;
+&lt;/div&gt;</field>
+            <field name="pending_msg">&lt;i&gt;Pending&lt;/i&gt;... Your order is pending. Thank you for your order.</field>
+            <field name="description" type="html">
+            <p>
+                Stellar is the easiest way to accept orders from your clients.
+            </p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><i class="fa fa-check"/>Accept orders</li>
+            </ul>
+        </field>
+        </record>
+
+</odoo>

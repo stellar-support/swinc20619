@@ -1,0 +1,7 @@
+<odoo noupdate="1">
+
+    <record id="website.default_website" model="website">
+        <field name="salesteam_id" eval="data_crm_team_online_salesteam"/>
+    </record>
+
+</odoo>
