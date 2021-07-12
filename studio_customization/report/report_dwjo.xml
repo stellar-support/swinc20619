@@ -6,7 +6,7 @@
         model="product.product"
         report_type="qweb-pdf"
         file="report_dwjo"
-        name="stellar.report_dwjo"
+        name="studio_customization.report_dwjo"
         print_report_name="'Suggested Reorder Report (DWJO) - %s' % (object.name)"
         menu="True"
     />

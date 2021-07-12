@@ -20,7 +20,7 @@
     'version': '0.2',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','website_sale','stock','documents_account','product','stock_account', 'purchase'],
+    'depends': ['base','sale','website_sale','stock','documents_account','product','stock_account', 'purchase','delivery'],
 
     # always loaded
     'data': [
@@ -41,6 +41,8 @@
         'views/delivery_views.xml',
         'views/res_users_views.xml',
         'report/report_dwjo_views.xml',
+        'report/report_dwjo.xml',
+        'report/report_dwjo_template.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
