@@ -59,7 +59,7 @@ class PaymentController(http.Controller):
 
         return True
 
-    @http.route(['/payment/stellar/save_note'], type='json', auth="user", website=True)
+    @http.route(['/payment/studio_customization/save_note'], type='json', auth="user", website=True)
     def save_note(self, partner_note=None):
         """ Saves the order note entered by the customer.
 
