@@ -1,11 +1,15 @@
-odoo.define('stellar.payment.processing', (require) => {
+odoo.define('studio_customization.payment.processing', (require) => {
     'use strict';
 
-    const PaymentProcessing = require('payment.processing');
+    var publicWidget = require('web.public.widget');
+    var PaymentProcessing = require('payment.processing');
 
-    PaymentProcessing.include({
+        publicWidget.registry.PaymentProcessing.include({
+        start: function() {
+            this._super.apply(this, arguments);
+        },
         processPolledData: function (transactions) {
-            if (transactions.length > 0 && transactions[0].acquirer_provider == 'stellar') {
+            if (transactions.length > 0 && transactions[0].acquirer_provider == 'studio_customization') {
                 window.location = transactions[0].return_url;
                 return;
             }

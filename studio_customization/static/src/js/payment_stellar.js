@@ -1,4 +1,4 @@
-odoo.define('stellar.payment_stellar', (require) => {
+odoo.define('studio_customization.payment_stellar', (require) => {
     'use strict';
 
     const PaymentForm = require('payment.payment_form');
@@ -15,7 +15,7 @@ odoo.define('stellar.payment_stellar', (require) => {
             this.OnStellarPayment({ currentTarget: this.$('.card input[data-provider]:checked').eq(0) });
         },
         OnStellarPayment (ev) {
-            this._OnStellarPayment = $(ev.currentTarget).data('provider') === 'stellar';
+            this._OnStellarPayment = $(ev.currentTarget).data('provider') === 'studio_customization';
         },
         payEvent (ev) {
             ev.preventDefault();
@@ -28,7 +28,7 @@ odoo.define('stellar.payment_stellar', (require) => {
             var payEventAfter = !ev;
             var self = this;
             // Save order note
-            return ajax.rpc('/payment/stellar/save_note/', {
+            return ajax.rpc('/payment/studio_customization/save_note/', {
                 'partner_note': this.$('#partner_note').val(),
             }).then(function () {
                 if (payEventAfter) {
@@ -51,7 +51,7 @@ odoo.define('stellar.payment_stellar', (require) => {
             this.disableButton(button);
 
             // First we check that the user has selected a payment method
-            ajax.jsonRpc('/payment/stellar/check_payment/', 'call', {
+            ajax.jsonRpc('/payment/studio_customization/check_payment/', 'call', {
                 'acquirer_id': parseInt(acquirer_id),
                 'order_id': self.options.orderId,
                 'access_token': self.options.accessToken,
