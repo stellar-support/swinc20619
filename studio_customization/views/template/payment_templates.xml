@@ -67,21 +67,20 @@
 
     <!-- Checkout Confirmation -->
     <template id="payment_confirmation_status" inherit_id="website_sale.payment_confirmation_status">
-        <!-- both x-path comment by ksolves -->
          <!-- Show post_msg mensaje when stellar pending -->
-        <!-- <xpath expr='//div[hasclass("card")]//div[@t-if="payment_tx_id.acquirer_id.post_msg"]/t[@t-raw="payment_tx_id.acquirer_id.post_msg"]' position="attributes">
+        <!-- <xpath expr='//div[hasclass("oe_website_sale_tx_status")]/div[1]/ //div[@t-if="payment_tx_id.acquirer_id.post_msg"]/t[@t-raw="payment_tx_id.acquirer_id.post_msg"]' position="attributes">
             <attribute name='t-if'>payment_tx_id.acquirer_id.provider != 'stellar' or payment_tx_id.state == 'pending'</attribute>
         </xpath> -->
 
-        <!-- <xpath expr='//div[hasclass("card")]//div[@t-if="payment_tx_id.acquirer_id.post_msg"]/t[@t-raw="payment_tx_id.acquirer_id.post_msg"]' position="after">
-            Show error mensaje when stellar fails
+        <xpath expr='//div[hasclass("card-header")]' position="before">
+            <!-- Show error mensaje when stellar fails -->
             <t t-esc="payment_tx_id.state_message" t-if="payment_tx_id.state_message and payment_tx_id.acquirer_id.provider == 'stellar' and payment_tx_id.state == 'error' "/>
-            Show post_msg mensaje when stellar pending
+            <!-- Show post_msg mensaje when stellar pending -->
             <div t-if="payment_tx_id.acquirer_id.provider == 'stellar' and order.reference and payment_tx_id.state == 'pending'">
                 <p><b>Communication: </b><span t-esc="order.reference"/></p>
                 To view your order, please checkout “My Account” section
             </div>
-        </xpath> -->
+        </xpath>
     </template>
 
     <!-- Portal Confirmation -->

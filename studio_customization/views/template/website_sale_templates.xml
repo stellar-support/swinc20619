@@ -11,8 +11,8 @@
         <!-- <xpath expr="//div[hasclass('carousel-inner')]/div[@t-if='variant_img']" position="attributes">
             <attribute name='itemprop'>image</attribute>
             <attribute name='t-options'>{'widget': 'image', 'class': 'product_detail_img js_variant_img', 'alt-field': 'name', 'zoom': 'image', 'unique': str(product['__last_update']) + (str(product_variant['__last_update']) or '')}</attribute>
-        </xpath>
-        <xpath expr="//div[hasclass('carousel-inner')]/div[contains(@t-attf-class, 'carousel-item')]" position="attributes">
+        </xpath> -->
+        <!-- <xpath expr="//div[hasclass('carousel-inner')]/div[contains(@t-attf-class, 'carousel-item')]" position="attributes">
             <attribute name='itemprop'>image</attribute>
             <attribute name='t-options'>{'widget': 'image', 'class': 'product_detail_img', 'alt-field': 'name', 'zoom': 'image', 'unique': product['__last_update']}</attribute>
         </xpath> -->
@@ -63,16 +63,16 @@
 
     <template id="products_item" inherit_id="website_sale.products_item">
         <!-- SHOW SKU --> 
-        <!-- <xpath expr="//section//div[hasclass('product_price')]" position="before">
+        <xpath expr="//div[hasclass('product_price')]" position="before">
             <div t-attf-class='font-weight-bold #{ not user_id._is_public() and "float-right" or "" }'>
                 <h8> SKU:  </h8>
                 <span t-esc="product.default_code"/>
             </div>
-        </xpath> -->
+        </xpath>
 
-        <!-- <xpath expr="//section//div[hasclass('product_price')]" position="attributes">
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
             <attribute name='t-if'>not user_id._is_public()</attribute>
-        </xpath> -->
+        </xpath>
 
     </template>
 

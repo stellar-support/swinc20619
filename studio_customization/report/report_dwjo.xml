@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <report
-        id="action_report_dwjo"
-        string="Suggested Reorder Report (DWJO)"
-        model="product.product"
-        report_type="qweb-pdf"
-        file="report_dwjo"
-        name="studio_customization.report_dwjo"
-        print_report_name="'Suggested Reorder Report (DWJO) - %s' % (object.name)"
-        menu="True"
-    />
+    <record id="action_report_dwjo" model="ir.actions.report">
+        <field name="name">Suggested Reorder Report (DWJO)</field>
+        <field name="model">product.product</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">Suggested Reorder Report (DWJO)</field>
+        <field name="report_file">Suggested Reorder Report (DWJO)</field>
+        <field name="print_report_name">'Suggested Reorder Report (DWJO) - %s' % (object.name)</field>
+        <!-- <field name="binding_model_id" ref="studio_customization.report_dwjo"/> -->
+    </record>
 </odoo>
