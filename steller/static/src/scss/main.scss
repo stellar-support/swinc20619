@@ -1,0 +1,72 @@
+// =============================
+// === DEFINE MAIN VARIABLES ===
+// =============================
+$h1-prpoduct-size: 40px;
+$border-top-radius: 0px;
+$font-size-description: 14px;
+$min-height-description: 30px;
+
+
+// =============================
+// === DEFINE LAYOUT STYLES ====
+// =============================
+
+.oe_website_sale {
+    h1[itemprop="name"] {
+        font-size: $h1-prpoduct-size;
+    }   
+}
+
+.mycart-popover {
+    &.popover {
+        .popover-header {
+            @include border-top-radius($border-top-radius);
+        }
+
+    }
+}
+
+#products_grid {
+
+    .oe_product { 
+
+        &:not(.oe_grid) {
+            .description-sale {
+                font-size: $font-size-description;
+                text-align: justify;
+                min-height: $min-height-description
+            }
+        }
+
+        &.oe_grid {
+            .description-sale {
+                display: none;
+            }
+        }
+    }
+
+}
+
+// Cart Summary
+.toggle_summary_div {
+    #cart_products.stellar-cart-summary {
+        thead th {
+            &.td-img {
+                min-width: 85px;
+            }
+            &.td-qty {
+                min-width: 75px;
+                
+            }
+        }
+    }
+
+}
+
+// =============================
+// === DEFINE MAIN STYLES ====
+// =============================
+
+.hyp-none {
+    hyphens:none;
+}

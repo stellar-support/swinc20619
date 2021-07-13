@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="product_pickup_delivery" model="product.product">
+        <field name="name">Pickup Delivery</field>
+        <field name="default_code">Pickup_delivery_001</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="delivery.product_category_deliveries"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="list_price">0.0</field>
+    </record>
+    <record id="pickup_delivery" model="delivery.carrier">
+        <field name="name">Pickup Delivery</field>
+        <field name="fixed_price">0.0</field>
+        <field name="free_over" eval="False"/>
+        <field name="sequence">1</field>
+        <field name="delivery_type">fixed</field>
+        <field name="is_published" eval="True"/>
+        <field name="pickup_warehouse" eval="True"/>
+        <field name="warehouse_id" ref="stock.warehouse0" />
+        <field name="product_id" ref="stellar.product_pickup_delivery"/>
+        <field name="website_description">PickUp in Warehouse</field>
+    </record>
+</odoo>

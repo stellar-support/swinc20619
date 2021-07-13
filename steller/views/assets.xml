@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template inherit_id="website.assets_frontend" id="assets_frontend" priority="17">
+        <!-- SCSS -->
+        <xpath expr="//link[last()]" position="after">
+            <link href="/stellar/static/src/scss/main.scss" type="text/scss" rel="stylesheet" />
+        </xpath>
+        <!-- JS -->
+        <xpath expr="//script[last()]" position="after">
+            <!-- Widgets -->
+            <script src="/stellar/static/src/js/payment_stellar.js" type="text/javascript"/>
+            <script src="/stellar/static/src/js/payment_processing.js" type="text/javascript"/>
+            <!-- Tours -->
+            <script src="/stellar/static/src/js/tours/stellar_payment_tour.js" type="text/javascript"/>
+            <script src="/stellar/static/src/js/tours/portal_order_tour.js" type="text/javascript"/>
+        </xpath>
+    </template>
+</odoo>

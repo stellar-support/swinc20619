@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="data_crm_team_online_salesteam" model="crm.team">
+        <field name="name">Online</field>
+        <field name="team_type" eval="'website'"/>
+    </record>
+
+</odoo>

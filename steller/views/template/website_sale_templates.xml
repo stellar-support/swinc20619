@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <!-- INHERITANCES APPLIED ON THE SERVER -->
+        <xpath expr="//t[@t-set='combination_info']" position="attributes">
+            <attribute name='t-value'>product._get_combination_info(first_possible_combination, add_qty=add_qty or 1)</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.pricelist_list']/t[@t-set='_classes']" position="attributes">
+            <attribute name='t-value'>'d-none'</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('carousel-inner')]/div[@t-if='variant_img']" position="attributes">
+            <attribute name='itemprop'>image</attribute>
+            <attribute name='t-options'>{'widget': 'image', 'class': 'product_detail_img js_variant_img', 'alt-field': 'name', 'zoom': 'image', 'unique': str(product['__last_update']) + (str(product_variant['__last_update']) or '')}</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('carousel-inner')]/div[contains(@t-attf-class, 'carousel-item')]" position="attributes">
+            <attribute name='itemprop'>image</attribute>
+            <attribute name='t-options'>{'widget': 'image', 'class': 'product_detail_img', 'alt-field': 'name', 'zoom': 'image', 'unique': product['__last_update']}</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='len(image_ids)']/div[hasclass('carousel-item')]" position="attributes">
+            <attribute name='itemprop'>image</attribute>
+            <attribute name='t-options'>{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;product_detail_img&quot;, &quot;alt-field&quot;: &quot;name&quot;, &quot;zoom&quot;: &quot;image&quot; }</attribute>
+        </xpath>
+        <!-- THERE ARE 3 P['text-muted'] AND I NEED SELECT THE LAST -->
+        <xpath expr="//p[hasclass('text-muted')]" position="attributes">
+            <attribute name='class' add='description_sale' separator=' '/>
+        </xpath>
+        <xpath expr="//p[hasclass('text-muted') and not(hasclass('description_sale')) and not(@id='product_attributes_simple')]" position="before">
+        <!-- SHOWS SKU -->
+            <h8>SKU:  </h8>    
+            <span t-set="internal_reference" style="" t-value="" t-esc="product.default_code"/>
+        </xpath>
+        <xpath expr="//p[hasclass('text-muted') and not(hasclass('description_sale')) and not(@id='product_attributes_simple')]" position="replace">
+            <p class="text-muted"/>
+        </xpath>
+        <xpath expr="//hr[2]" position="attributes">
+            <attribute name='class' add='mb-0' separator=' '/>
+        </xpath>
+
+        <!-- HIDE OR SHOW ADD PRODUCT BUTTON-->
+        <xpath expr="//t[@t-set='combination_info']" position="after">
+            <t t-set="is_public" t-value="user_id._is_public()" />
+        </xpath>
+        <xpath expr="//div[@id='product_details']/form[@action='/shop/cart/update']" position="attributes">
+            <attribute name='t-attf-class'>#{ is_public and 'd-none' or '' }</attribute>
+        </xpath>
+        <xpath expr="//div[@id='product_details']/form[@action='/shop/cart/update']" position="before">
+            <a  t-if='is_public' class="btn btn-primary btn-lg mt8 " href="/shop">Return to Shop</a>
+        </xpath>
+
+    </template>
+
+    <template id="products" inherit_id="website_sale.products">
+        <!-- Hide pricelist -->
+        <xpath expr="//div[hasclass('products_pager')]/t[@t-call='website_sale.pricelist_list']" position="attributes">
+            <attribute name='t-if'>False</attribute>
+        </xpath>
+        <!-- Hide top pager -->
+        <xpath expr="//div[hasclass('products_pager')]/t[@t-call='website.pager']" position="attributes">
+            <attribute name='t-if'>False</attribute>
+        </xpath>
+
+    </template>
+
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <!-- SHOW SKU --> 
+        <xpath expr="//section//div[hasclass('product_price')]" position="before">
+            <div t-attf-class='font-weight-bold #{ not user_id._is_public() and "float-right" or "" }'>
+                <h8> SKU:  </h8>
+                <span t-esc="product.default_code"/>
+            </div>
+        </xpath>
+
+        <xpath expr="//section//div[hasclass('product_price')]" position="attributes">
+            <attribute name='t-if'>not user_id._is_public()</attribute>
+        </xpath>
+
+    </template>
+
+    <template id="products_description" inherit_id="website_sale.products_description">
+        <!-- Fix description --> 
+        <xpath expr="//div[hasclass('text-info', 'oe_subdescription')]" position="attributes">
+            <attribute name='class' add='description-sale' remove='text-info' separator=' '/>
+        </xpath>
+
+        <xpath expr="//div[@itemprop='description' and @t-field='product.description_sale']" position="attributes">
+            <attribute name='t-field'></attribute>
+            <attribute name='t-esc'>product.description_sale</attribute>
+        </xpath>
+    </template>
+
+    <template id="cart_summary" inherit_id="website_sale.cart_summary">
+        <!-- Add stellar class --> 
+        <xpath expr="//table[@id='cart_products']" position="attributes">
+            <attribute name='class' add='stellar-cart-summary' separator=' '/>
+        </xpath>
+    </template>
+
+    <template id="cart" inherit_id="website_sale.cart">
+        <!-- Change Continue Shopping button XL --> 
+        <xpath expr="//div[hasclass('oe_website_sale')]//div[hasclass('oe_cart')]//a[@href='/shop' and hasclass('d-none', 'd-xl-inline-block')]" position="attributes">
+            <attribute name='href'></attribute>
+            <attribute name='onClick'>history.go(-1); return false;</attribute>
+        </xpath>
+        <!-- Change Continue Shopping button SM --> 
+        <xpath expr="//div[hasclass('oe_website_sale')]//div[hasclass('col-12','col-xl-4')]//a[@href='/shop']/span[hasclass('fa-chevron-left')]/.." position="attributes">
+            <attribute name='href'></attribute>
+            <attribute name='onClick'>history.go(-1); return false;</attribute>
+        </xpath>
+    </template>
+
+    <template id="checkout" inherit_id="website_sale.checkout">
+        <!-- Change Return to card button --> 
+        <xpath expr="//div[hasclass('oe_website_sale')]//div[hasclass('oe_cart')]//a[@href='/shop/cart']/i[hasclass('fa-chevron-left')]/.." position="replace">
+            <a role="button" href="/shop/payment" class="btn btn-secondary mb32">
+                <i class="fa fa-chevron-left"/>
+                <span>Go back</span>
+            </a>
+        </xpath>
+        <!-- Remove edit button in billing address - /shop/checkout --> 
+        <xpath expr="//div[hasclass('oe_cart')]//t[@t-set='contact' and @t-value='order.partner_id']" position="after">
+            <t t-set="actual_partner" t-value="order.partner_id"/>
+            <t t-set="ship" t-value="order.partner_id"/>
+        </xpath>
+    </template>
+
+    <template id="payment_delivery_methods" inherit_id="website_sale_delivery.payment_delivery_methods">
+        <!-- Hide FREE text in deliveries --> 
+        <span t-else="" t-att-class="badge_class" position="replace">
+            <span t-else="" t-att-class="badge_class" />
+        </span>
+    </template>
+
+</odoo>

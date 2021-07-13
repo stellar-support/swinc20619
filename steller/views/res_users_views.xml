@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_simple_form_subscribe_to_confirmation_email_field" model="ir.ui.view">
+        <field name="name">view.users.simple.form.subscribe.to.confirmation.email.field</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_simple_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="before">
+                <field name="subscribed_to_confirmation_email"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

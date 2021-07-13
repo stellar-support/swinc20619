@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_dwjo_pivot">
+        <field name="name">dwjo.pivot</field>
+        <field name="model">report.dwjo</field>
+        <field name="arch" type="xml">
+            <pivot string="DWJO" disable_linking="True">
+                <field name="name" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_dwjo_report" model="ir.actions.act_window">
+        <field name="name">DWJO</field>
+        <field name="res_model">report.dwjo</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">pivot</field>
+        <field name="context">{
+            'pivot_measures': ['sale_months_6', 'sale_months_2', 'sale_months_last', 'sale_weeks_2', 'qty_hand', 'qty_order', 'qty_reserved'],
+            'pivot_column_groupby': [],
+            'pivot_row_groupby': ['name']
+        }</field>
+        <field name="help">Suggested Reorder Report.</field>
+    </record>
+
+    <menuitem id="menu_action_dwjo_report" name="DWJO Report"
+        parent="stock.menu_warehouse_report" sequence="4"
+        action="stellar.action_dwjo_report"/>
+</odoo>
